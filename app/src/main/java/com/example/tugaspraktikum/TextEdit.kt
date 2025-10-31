@@ -4,17 +4,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -113,8 +116,26 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                             modifier = Modifier.fillMaxWidth(),
                             placeholder = { Text(text = "Isi nama lengkapnya") }
                         )
+                        Text(text = "JENIS KELAMIN", color = labelColorOnWhite)
+                        Column(verticalArrangement = Arrangement.spacedBy(space = 1.dp)) {
+                            genders.forEach { gender ->
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier
+                                        .selectable(
+                                            selected = (genderInput == gender),
+                                            onClick = { genderInput = gender }
+                                        )
+                                        .padding(vertical = 1.dp)
+                                ) {
+                                    RadioButton(
+                                        selected = (genderInput == gender),
+                                        onClick = { genderInput = gender }
+                                    )
+                                    Text(text = gender, modifier = Modifier.padding(start = 8.dp), color = Color.Black)
 
-                    }
+
+                                }
                 }
         }
     }
