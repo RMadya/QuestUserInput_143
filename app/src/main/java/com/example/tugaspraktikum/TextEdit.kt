@@ -38,12 +38,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.content.pm.ShortcutInfoCompat
 import kotlinx.coroutines.delay
 
 @Composable
-fun FormDataDiriStyled(modifier: Modifier = Modifier) {
-    // states
+fun FormDataDiriStyled(modifier: Modifier = Modifier) { // Parameter 'name: String' dihapus
+    // states - DIINISIALISASI DENGAN STRING KOSONG
     var namaInput by remember { mutableStateOf(value = "" ) }
     var alamatInput by remember { mutableStateOf(value = "") }
     var genderInput by remember { mutableStateOf(value = "") }
@@ -114,6 +113,7 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.spacedBy(space = 10.dp)
                     ){
+                        // NAMA LENGKAP
                         Text(text = "NAMA LENGKAP", color = labelColorOnWhite)
                         OutlinedTextField(
                             value = namaInput,
@@ -122,12 +122,15 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                             modifier = Modifier.fillMaxWidth(),
                             placeholder = { Text(text = "Isi nama lengkapnya") }
                         )
+
+                        // JENIS KELAMIN
                         Text(text = "JENIS KELAMIN", color = labelColorOnWhite)
                         Column(verticalArrangement = Arrangement.spacedBy(space = 1.dp)) {
                             genders.forEach { gender ->
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier
+                                        .fillMaxWidth()
                                         .selectable(
                                             selected = (genderInput == gender),
                                             onClick = { genderInput = gender }
@@ -139,99 +142,99 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                                         onClick = { genderInput = gender }
                                     )
                                     Text(text = gender, modifier = Modifier.padding(start = 8.dp), color = Color.Black)
-
-
                                 }
-                                Text(text = "STATUS PERKAWINAN", color = labelColorOnWhite)
-                                Column(verticalArrangement = Arrangement.spacedBy(space = 1.dp)) {
-                                    statuses.forEach { status ->
-                                        Row(
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            modifier = Modifier
-                                                .selectable(
-                                                    selected = (statusInput == status),
-                                                    onClick = { statusInput = status }
-                                                )
-                                                .padding(vertical = 1.dp)
-                                        ) {
-                                            RadioButton(
-                                                selected = (statusInput == status),
-                                                onClick = { statusInput = status }
-                                            )
-                                            Text(text = status, modifier = Modifier.padding(start = 8.dp), color = Color.Black)
-                                        }
-                                    }
-                                }
-                                // Alamat
-                                Text(text = "ALAMAT", color = labelColorOnWhite)
-                                OutlinedTextField(
-                                    value = alamatInput,
-                                    onValueChange = { alamatInput = it },
-                                    singleLine = true,
-                                    modifier = Modifier.fillMaxWidth(),
-                                    placeholder = { Text(text = "Alamat") }
-                                )
-                                Spacer(modifier = Modifier.height(height = 6.dp))
-
-                                Button(
-                                    onClick = {
-                                        // simpan data ke state submitted dan tandai sudah submit
-                                        submittedNama = namaInput.trim()
-                                        submittedGender = genderInput
-                                        submittedStatus = statusInput
-                                        submittedAlamat = alamatInput.trim()
-                                        isSubmitted = true
-                                    },
-                                    enabled = namaInput.isNotBlank() && alamatInput.isNotBlank(),
+                            }
+                        }
+                        // --- PERBAIKAN UTAMA DIMULAI DI SINI ---
+                        // STATUS PERKAWINAN - DIPINDAHKAN KELUAR DARI LOOP GENDERS
+                        Text(text = "STATUS PERKAWINAN", color = labelColorOnWhite)
+                        Column(verticalArrangement = Arrangement.spacedBy(space = 1.dp)) {
+                            statuses.forEach { status ->
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .height(height = 48.dp)
-                                        .clip(shape = RoundedCornerShape(size = 24.dp)),
-                                    colors = ButtonDefaults.buttonColors(containerColor = primaryPurple)
+                                        .selectable(
+                                            selected = (statusInput == status),
+                                            onClick = { statusInput = status }
+                                        )
+                                        .padding(vertical = 1.dp)
                                 ) {
-                                    Text(text = "Submit", color = Color.White)
+                                    RadioButton(
+                                        selected = (statusInput == status),
+                                        onClick = { statusInput = status }
+                                    )
+                                    Text(text = status, modifier = Modifier.padding(start = 8.dp), color = Color.Black)
                                 }
-                                Spacer(modifier = Modifier.height(height = 8.dp))
-                                if (isSubmitted) {
-                                    ElevatedCard(
-                                        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-                                        colors = CardDefaults.cardColors(containerColor = cardResultBg),
-                                        shape = RoundedCornerShape(size = 12.dp),
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(vertical = 8.dp)
-                                    ) {
-                                        Column(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(horizontal = 16.dp, vertical = 12.dp),
-                                            verticalArrangement = Arrangement.spacedBy(space = 6.dp)
-                                        ) {
-                                            Text(text = "Nama   : ${submittedNama.ifBlank { "-" }}", color = cardResultText)
-                                            Text(text = "Gender : ${submittedGender.ifBlank { "-" }}", color = cardResultText)
-                                            Text(text = "Status : ${submittedStatus.ifBlank { "-" }}", color = cardResultText)
-                                            Text(text = "Alamat : ${submittedAlamat.ifBlank { "-" }}", color = cardResultText)
-                                        }
-                                    }
-                                }
-
                             }
                         }
 
+                        // ALAMAT - DIPINDAHKAN KELUAR DARI LOOP GENDERS
+                        Text(text = "ALAMAT", color = labelColorOnWhite)
+                        OutlinedTextField(
+                            value = alamatInput,
+                            onValueChange = { alamatInput = it },
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth(),
+                            placeholder = { Text(text = "Alamat") }
+                        )
+                        Spacer(modifier = Modifier.height(height = 6.dp))
+
+                        // TOMBOL SUBMIT - DIPINDAHKAN KELUAR DARI LOOP GENDERS
+                        Button(
+                            onClick = {
+                                submittedNama = namaInput.trim()
+                                submittedGender = genderInput
+                                submittedStatus = statusInput
+                                submittedAlamat = alamatInput.trim()
+                                isSubmitted = true
+                            },
+                            enabled = namaInput.isNotBlank() && alamatInput.isNotBlank(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(height = 48.dp)
+                                .clip(shape = RoundedCornerShape(size = 24.dp)),
+                            colors = ButtonDefaults.buttonColors(containerColor = primaryPurple)
+                        ) {
+                            Text(text = "Submit", color = Color.White)
+                        }
+                        Spacer(modifier = Modifier.height(height = 8.dp))
+
+                        // HASIL - DIPINDAHKAN KELUAR DARI LOOP GENDERS
+                        if (isSubmitted) {
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                                colors = CardDefaults.cardColors(containerColor = cardResultBg),
+                                shape = RoundedCornerShape(size = 12.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                                    verticalArrangement = Arrangement.spacedBy(space = 6.dp)
+                                ) {
+                                    Text(text = "Nama   : ${submittedNama.ifBlank { "-" }}", color = cardResultText)
+                                    Text(text = "Gender : ${submittedGender.ifBlank { "-" }}", color = cardResultText)
+                                    Text(text = "Status : ${submittedStatus.ifBlank { "-" }}", color = cardResultText)
+                                    Text(text = "Alamat : ${submittedAlamat.ifBlank { "-" }}", color = cardResultText)
+                                }
+                            }
+                        }
+                        // --- PERBAIKAN UTAMA BERAKHIR DI SINI ---
                     }
-                    Spacer(modifier = Modifier.height(height = 12.dp))
                 }
             }
-            LaunchedEffect(key1 = isSubmitted) {
-                if (isSubmitted) {
-                    // sedikit delay agar layout selesai measure dulu
-                    delay(timeMillis = 80)
-                    scrollState.animateScrollTo(scrollState.maxValue)
-                }
+            Spacer(modifier = Modifier.height(height = 12.dp))
+        }
+
+        LaunchedEffect(key1 = isSubmitted) {
+            if (isSubmitted) {
+                delay(timeMillis = 80)
+                scrollState.animateScrollTo(scrollState.maxValue)
             }
         }
-
-
-        }
-        }
-
+    }
+}
