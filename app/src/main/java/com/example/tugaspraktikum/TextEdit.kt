@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun FormDataDiriStyled(modifier: Modifier = Modifier) {
@@ -24,3 +26,9 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
 
     val genders = listOf("Laki-laki", "Perempuan")
     val statuses = listOf("Janda", "Lajang", "Duda")
+
+    val headerGradient = Brush.verticalGradient(colors = listOf(Color(color = 0xFFCE93D8), Color(color = 0xFFE1BEE7)))
+    val primaryPurple = Color(color = 0xFF8E24AA)
+    val labelColorOnWhite = Color(color = 0xFF555555)
+    val cardResultBg = Color(color = 0xFF222222)
+    val cardResultText = Color.White
