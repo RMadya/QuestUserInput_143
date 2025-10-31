@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -189,8 +190,39 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                                     Text(text = "Submit", color = Color.White)
                                 }
                                 Spacer(modifier = Modifier.height(height = 8.dp))
+                                if (isSubmitted) {
+                                    ElevatedCard(
+                                        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                                        colors = CardDefaults.cardColors(containerColor = cardResultBg),
+                                        shape = RoundedCornerShape(size = 12.dp),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 8.dp)
+                                    ) {
+                                        Column(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 16.dp, vertical = 12.dp),
+                                            verticalArrangement = Arrangement.spacedBy(space = 6.dp)
+                                        ) {
+                                            Text(text = "Nama   : ${submittedNama.ifBlank { "-" }}", color = cardResultText)
+                                            Text(text = "Gender : ${submittedGender.ifBlank { "-" }}", color = cardResultText)
+                                            Text(text = "Status : ${submittedStatus.ifBlank { "-" }}", color = cardResultText)
+                                            Text(text = "Alamat : ${submittedAlamat.ifBlank { "-" }}", color = cardResultText)
+                                        }
+                                    }
+                                }
 
                             }
+                        }
+
+                    }
+                    Spacer(modifier = Modifier.height(height = 12.dp))
+                }
+            }
+
+
+        }
         }
     }
 
