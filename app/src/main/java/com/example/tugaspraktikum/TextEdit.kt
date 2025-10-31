@@ -12,3 +12,10 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
     var alamatInput by remember { mutableStateOf(value = "") }
     var genderInput by remember { mutableStateOf(value = "") }
     var statusInput by remember { mutableStateOf(value = "") }
+
+    var submittedNama by remember { mutableStateOf(value = "") }
+    var submittedGender by remember { mutableStateOf(value = "") }
+    var submittedStatus by remember { mutableStateOf(value = "") }
+    var submittedAlamat by remember { mutableStateOf(value = "") }
+
+    var isSubmitted by remember { mutableStateOf(value = false ) }
