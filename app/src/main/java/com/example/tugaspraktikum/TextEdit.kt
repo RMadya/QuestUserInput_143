@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -103,7 +104,17 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                             .padding(all = 16.dp),
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.spacedBy(space = 10.dp)
-                    )
+                    ){
+                        Text(text = "NAMA LENGKAP", color = labelColorOnWhite)
+                        OutlinedTextField(
+                            value = namaInput,
+                            onValueChange = { namaInput = it },
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth(),
+                            placeholder = { Text(text = "Isi nama lengkapnya") }
+                        )
+
+                    }
                 }
         }
     }
