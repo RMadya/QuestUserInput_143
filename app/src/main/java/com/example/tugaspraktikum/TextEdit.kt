@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +14,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -136,7 +139,58 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
 
 
                                 }
-                }
+                                Text(text = "STATUS PERKAWINAN", color = labelColorOnWhite)
+                                Column(verticalArrangement = Arrangement.spacedBy(space = 1.dp)) {
+                                    statuses.forEach { status ->
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            modifier = Modifier
+                                                .selectable(
+                                                    selected = (statusInput == status),
+                                                    onClick = { statusInput = status }
+                                                )
+                                                .padding(vertical = 1.dp)
+                                        ) {
+                                            RadioButton(
+                                                selected = (statusInput == status),
+                                                onClick = { statusInput = status }
+                                            )
+                                            Text(text = status, modifier = Modifier.padding(start = 8.dp), color = Color.Black)
+                                        }
+                                    }
+                                }
+                                // Alamat
+                                Text(text = "ALAMAT", color = labelColorOnWhite)
+                                OutlinedTextField(
+                                    value = alamatInput,
+                                    onValueChange = { alamatInput = it },
+                                    singleLine = true,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    placeholder = { Text(text = "Alamat") }
+                                )
+                                Spacer(modifier = Modifier.height(height = 6.dp))
+
+                                Button(
+                                    onClick = {
+                                        // simpan data ke state submitted dan tandai sudah submit
+                                        submittedNama = namaInput.trim()
+                                        submittedGender = genderInput
+                                        submittedStatus = statusInput
+                                        submittedAlamat = alamatInput.trim()
+                                        isSubmitted = true
+                                    },
+                                    enabled = namaInput.isNotBlank() && alamatInput.isNotBlank(),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(height = 48.dp)
+                                        .clip(shape = RoundedCornerShape(size = 24.dp)),
+                                    colors = ButtonDefaults.buttonColors(containerColor = primaryPurple)
+                                ) {
+                                    Text(text = "Submit", color = Color.White)
+                                }
+                                Spacer(modifier = Modifier.height(height = 8.dp))
+
+                            }
         }
     }
 
