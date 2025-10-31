@@ -21,3 +21,6 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
     var submittedAlamat by remember { mutableStateOf(value = "") }
 
     var isSubmitted by remember { mutableStateOf(value = false ) }
+
+    val genders = listOf("Laki-laki", "Perempuan")
+    val statuses = listOf("Janda", "Lajang", "Duda")
