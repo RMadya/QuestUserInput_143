@@ -1,16 +1,21 @@
 package com.example.tugaspraktikum
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,8 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.core.content.pm.ShortcutInfoCompat
 
 @Composable
@@ -71,7 +80,40 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .verticalScroll(scrollState) // semua konten di-card bisa discroll
                 ){
-
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(height = 50.dp)
+                            .clip(shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp))
+                            .background(brush = headerGradient),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Formulir Pendaftaran",
+                            color = Color.White,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
+                    // Isi form (langsung di bawah header)
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(all = 16.dp),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.spacedBy(space = 10.dp)
+                    )
                 }
         }
     }
+
+@Composable
+fun Text(text: String, color: Color, fontWeight: SemiBold, textAlign: Center, style: titleLarge) {
+    TODO("Not yet implemented")
+}
+
+@Composable
+fun Text(text: String, color: Color, fontWeight: SemiBold, textAlign: Center, style: titleLarge) {
+    TODO("Not yet implemented")
+}
