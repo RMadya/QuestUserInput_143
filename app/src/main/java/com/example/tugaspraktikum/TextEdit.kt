@@ -25,6 +25,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.pm.ShortcutInfoCompat
+import kotlinx.coroutines.delay
 
 @Composable
 fun FormDataDiriStyled(modifier: Modifier = Modifier) {
@@ -220,18 +222,16 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
                     Spacer(modifier = Modifier.height(height = 12.dp))
                 }
             }
+            LaunchedEffect(key1 = isSubmitted) {
+                if (isSubmitted) {
+                    // sedikit delay agar layout selesai measure dulu
+                    delay(timeMillis = 80)
+                    scrollState.animateScrollTo(scrollState.maxValue)
+                }
+            }
+        }
 
 
         }
         }
-    }
 
-@Composable
-fun Text(text: String, color: Color, fontWeight: SemiBold, textAlign: Center, style: titleLarge) {
-    TODO("Not yet implemented")
-}
-
-@Composable
-fun Text(text: String, color: Color, fontWeight: SemiBold, textAlign: Center, style: titleLarge) {
-    TODO("Not yet implemented")
-}
