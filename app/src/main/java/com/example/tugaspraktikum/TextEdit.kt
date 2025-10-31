@@ -1,5 +1,6 @@
 package com.example.tugaspraktikum
 
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,3 +33,5 @@ fun FormDataDiriStyled(modifier: Modifier = Modifier) {
     val labelColorOnWhite = Color(color = 0xFF555555)
     val cardResultBg = Color(color = 0xFF222222)
     val cardResultText = Color.White
+
+    val scrollState = rememberScrollState()
